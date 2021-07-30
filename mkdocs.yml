@@ -1,0 +1,13 @@
+
+site_name: cwl-for-eo
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - Introduction: 'index.md'
