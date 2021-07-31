@@ -11,6 +11,16 @@ markdown_extensions:
 
 nav:
   - Introduction: 'index.md'
+  - "101"
+    - docker: '101/containers.md'
+    - YAML: '101/yaml.md'
+    - CWL: '101/cwl.md'
   - EO toolboxes:
     - SNAP:
+      - '101': '101/snap.md'
       - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
+    - OrfeoToolbox:
+      - '101': '101/orfeo-toolbox.md'
+  - EO tools:
+    - GDAL:
+      - '101': '101/gdal.md'
