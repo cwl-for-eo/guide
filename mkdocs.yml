@@ -25,3 +25,5 @@ nav:
   - EO tools:
     - GDAL:
       - GDAL 101: '101/gdal.md'
+  - Python:
+    - Introduction: python/introduction.md
