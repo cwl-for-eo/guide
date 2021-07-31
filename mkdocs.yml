@@ -11,7 +11,7 @@ markdown_extensions:
 
 nav:
   - Introduction: 'index.md'
-  - "101"
+  - "101":
     - docker: '101/containers.md'
     - YAML: '101/yaml.md'
     - CWL: '101/cwl.md'
