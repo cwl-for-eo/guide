@@ -11,3 +11,4 @@ markdown_extensions:
 
 nav:
   - Introduction: 'index.md'
+  - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
