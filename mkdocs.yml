@@ -12,6 +12,7 @@ markdown_extensions:
 nav:
   - Introduction: 'index.md'
   - What you need to know:
+    - About this sections: 101/about.md
     - Containers 101: '101/containers.md'
     - YAML 101: '101/yaml.md'
     - CWL 101: '101/cwl.md'
