@@ -1,5 +1,5 @@
 
-site_name: cwl-for-eo
+site_name: Guide for CWL in Earth Observation
 
 theme:
   name: material
@@ -11,4 +11,6 @@ markdown_extensions:
 
 nav:
   - Introduction: 'index.md'
-  - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
+  - EO toolboxes:
+    - SNAP:
+      - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
