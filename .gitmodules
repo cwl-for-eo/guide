@@ -10,3 +10,6 @@
 [submodule "docs/otb"]
 	path = docs/otb
 	url = https://github.com/cwl-for-eo/otb.git
+[submodule "docs/workflows/sentinel-2-nbr"]
+	path = docs/workflows/sentinel-2-nbr
+	url = https://github.com/cwl-for-eo/sentinel-2-nbr.git
