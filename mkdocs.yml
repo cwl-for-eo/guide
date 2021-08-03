@@ -26,6 +26,7 @@ nav:
   - EO tools:
     - GDAL:
       - GDAL 101: '101/gdal.md'
+      - gdal_translate: gdal/gdal_translate/README.md
   - Python:
     - Introduction: python/introduction.md
   - STAC:

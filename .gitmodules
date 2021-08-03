@@ -4,3 +4,6 @@
 [submodule "docs/stac"]
 	path = docs/stac
 	url = https://github.com/cwl-for-eo/stac.git
+[submodule "docs/gdal"]
+	path = docs/gdal
+	url = https://github.com/cwl-for-eo/gdal.git
