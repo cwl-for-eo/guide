@@ -2,5 +2,5 @@
 	path = docs/cwl-snap-graph-runner
 	url = https://github.com/cwl-for-eo/cwl-snap-graph-runner.git
 [submodule "stac"]
-	path = stac
+	path = docs/stac
 	url = https://github.com/cwl-for-eo/stac.git
