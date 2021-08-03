@@ -28,3 +28,6 @@ nav:
       - GDAL 101: '101/gdal.md'
   - Python:
     - Introduction: python/introduction.md
+  - STAC:
+    - Introduction: stac/README.md
+    - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
