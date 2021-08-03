@@ -23,6 +23,7 @@ nav:
       - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
     - OrfeoToolbox:
       - Orfeo Toolbox 101: '101/orfeo-toolbox.md'
+      - BandMathX: otb/bandmathx/README.md
   - EO tools:
     - GDAL:
       - GDAL 101: '101/gdal.md'

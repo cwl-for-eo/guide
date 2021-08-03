@@ -7,3 +7,6 @@
 [submodule "docs/gdal"]
 	path = docs/gdal
 	url = https://github.com/cwl-for-eo/gdal.git
+[submodule "docs/otb"]
+	path = docs/otb
+	url = https://github.com/cwl-for-eo/otb.git
