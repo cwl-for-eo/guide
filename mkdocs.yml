@@ -14,7 +14,14 @@ markdown_extensions:
 plugins:
   - search
   - mermaid2
+
+extra_css:
+  - https://unpkg.com/mermaid@8.9.1/dist/mermaid.css
   
+extra_javascript:
+  - https://unpkg.com/mermaid@8.9.1/dist/mermaid.min.js
+
+
 nav:
   - Introduction: 'index.md'
   - What you need to know:
