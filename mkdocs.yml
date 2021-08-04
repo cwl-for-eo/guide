@@ -8,6 +8,7 @@ markdown_extensions:
   - admonition
   - pymdownx.highlight
   - pymdownx.superfences
+  - pymdownx.snippets
 
 nav:
   - Introduction: 'index.md'
