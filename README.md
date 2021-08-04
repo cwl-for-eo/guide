@@ -1,4 +1,4 @@
-# The Common Worfflow Language for Earth Observation Guide
+# The Common Workflow Language for Earth Observation Guide
 
 ## TL;DR
 
