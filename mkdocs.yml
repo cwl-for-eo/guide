@@ -16,10 +16,10 @@ plugins:
   - mermaid2
 
 extra_css:
-  - https://unpkg.com/mermaid@8.9.1/dist/mermaid.css
+  - https://unpkg.com/mermaid@8.8.0/dist/mermaid.css
   
 extra_javascript:
-  - https://unpkg.com/mermaid@8.9.1/dist/mermaid.min.js
+  - https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js
 
 
 nav:
