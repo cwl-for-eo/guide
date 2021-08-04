@@ -24,6 +24,8 @@ nav:
     - OrfeoToolbox:
       - Orfeo Toolbox 101: '101/orfeo-toolbox.md'
       - BandMathX: otb/bandmathx/README.md
+      - BundleToPerfectSensor: otb/landsat-8-pan-sharpening/README.md
+      - Mosaic: otb/landsat-8-mosaic/README.md
   - EO tools:
     - GDAL:
       - GDAL 101: '101/gdal.md'
@@ -35,3 +37,5 @@ nav:
     - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
   - EO Workflows:
     - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
+    - Landsat-8 pan-sharpening: otb/landsat-8-pan-sharpening/README.md
+    - Landsat-8 mosaic: otb/landsat-8-mosaic/README.md
