@@ -11,6 +11,10 @@ markdown_extensions:
   - pymdownx.snippets:
       base_path: 'docs/'
 
+plugins:
+  - search
+  - mermaid2
+  
 nav:
   - Introduction: 'index.md'
   - What you need to know:
