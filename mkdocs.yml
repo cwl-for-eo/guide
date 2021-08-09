@@ -36,7 +36,7 @@ nav:
   - Requirements: requirements.md
   - EO toolboxes:
     - SNAP:
-      - SNAP 101: '101/snap.md'
+      - SNAP 101: 'snap/101.md'
       - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
     - OrfeoToolbox:
       - Orfeo Toolbox 101: '101/orfeo-toolbox.md'

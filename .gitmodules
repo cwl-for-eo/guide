@@ -13,3 +13,6 @@
 [submodule "docs/workflows/sentinel-2-nbr"]
 	path = docs/workflows/sentinel-2-nbr
 	url = https://github.com/cwl-for-eo/sentinel-2-nbr.git
+[submodule "snap"]
+	path = snap
+	url = https://github.com/cwl-for-eo/snap.git
