@@ -17,7 +17,7 @@ Although the paper provides a clear and concise description of the CWL standards
 
 4. The CWL standards provide a separation of concerns between workflow authors and workflow platforms.
 
-5. (5) The CWL standards support critical workflow concepts like automation, scalability, abstraction, provenance, portability, and reusability. 
+5. The CWL standards support critical workflow concepts like automation, scalability, abstraction, provenance, portability, and reusability. 
 
 6. The CWL standards are developed around core principles of community and shared decision-making, re-use, and zero cost for participants.
 
@@ -27,11 +27,11 @@ Although the paper provides a clear and concise description of the CWL standards
 
 The CWL standard support polylingual and multi-party workflows and includes two main components:
 
-1. a standard for describing command line tools
+1. A standard for describing command line tools
 
-2. a standard for describing workflows that compose such tool descriptions
+2. A standard for describing workflows that compose such tool descriptions
 
-The CWL standards define an explicit language with a textual syntax is derived from YAML
+The CWL standards define an explicit language with a textual syntax derived from YAML
 
 #### CWL Command Line Tool Description Standard
 
@@ -44,7 +44,7 @@ inputs and parameters and their types
 
 TODO: include an example
 
-##### CWL Workflow Description Standard
+#### CWL Workflow Description Standard
 
 The CWL Workflow Description Standard is based on the same textual syntax derived from YAML to explicit workflow level inputs, outputs and steps.
 
