@@ -79,7 +79,7 @@ cwlVersion: v1.0
 ```
 
 * add the `CommandLineTool` elements:
-    * `basecommand`: the CLI utility to invoke
+    * `baseCommand`: the CLI utility to invoke
     * `arguments`: any arguments for the CLI utility
     * `inputs`: the input parameters to expose 
     * `outputs`: the outputs to collect after the execution of the CLI utility
@@ -87,7 +87,7 @@ cwlVersion: v1.0
 ```yaml hl_lines="3-9"
 class: CommandLineTool
 
-basecommand:
+baseCommand:
 
 arguments:
 
@@ -105,7 +105,7 @@ class: CommandLineTool
 
 requirements: 
 
-basecommand:
+baseCommand:
 
 arguments:
 
@@ -118,14 +118,14 @@ cwlVersion: v1.0
 
 It's now time to fill the elements with their values.
 
-- add the `basecommand`: 
+- add the `baseCommand`: 
 
 ```yaml hl_lines="5-5"
 class: CommandLineTool
 
 requirements: 
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 
@@ -145,7 +145,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 
@@ -168,7 +168,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 
@@ -197,7 +197,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 
@@ -225,7 +225,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 - -projwin 
@@ -259,7 +259,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 - -projwin 
@@ -296,7 +296,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 - -projwin 
@@ -335,7 +335,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 - -projwin 
@@ -376,7 +376,7 @@ requirements:
   DockerRequirement: 
     dockerPull: osgeo/gdal
 
-basecommand: gdal_translate
+baseCommand: gdal_translate
 
 arguments:
 - -projwin 
