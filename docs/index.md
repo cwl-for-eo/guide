@@ -4,10 +4,10 @@ This is a guide for learning how to use the Common Workflow Language in the Eart
 
 This guide provides a light introduction to:
 
-- CWL, a 
-- Containers as these provide a self-contained environment to run tools (e.g. GDAL, SNAP or OTB)
-- YAML as the language used to create CWL documents and their parameters file
-- STAC as a specification to abstract the EO acquisition's files (data or metadata) and ease the access to bands or manifests
+- The **Common Workflow Language**, an open standard for describing command-line tool based workflows 
+- **Containers** as these provide a self-contained environment to run tools (e.g. GDAL, SNAP or OTB)
+- **YAML** (**Y**AML **A**in't **M**arkup **L**anguage) a human-readable data-serialization language used to create CWL documents and their parameters file
+- **SpatioTemporal Asset Catalog (STAC) (STAC)** as a specification to abstract the EO acquisition's files (data or metadata) and ease the access to bands or manifests
 
 This guide includes a set of examples showing what can CWL do in typical Earth Observation use cases.
 
