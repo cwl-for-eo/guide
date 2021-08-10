@@ -60,7 +60,7 @@ This guide uses the CWL runner [cwltool](https://pypi.org/project/cwltool).
 
 Goal: create a CWL *CommandLineTool* that uses GDAL's `gdal_translate` to clip a GeoTIFF using a given bounding box expressed in a defined EPSG code. 
 
-Use a text editor to:
+Use a text editor to create a new plain text file and:
 
 - set the CWL class `CommandLineTool`
 
