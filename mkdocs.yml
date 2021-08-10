@@ -29,12 +29,12 @@ extra_javascript:
 
 nav:
   - Introduction: 'index.md'
+  - Requirements: requirements.md
   - What you need to know:
     - About this section: 101/about.md
     - Containers 101: '101/containers.md'
     - YAML 101: '101/yaml.md'
     - CWL 101: '101/cwl.md'
-  - Requirements: requirements.md
   - EO toolboxes:
     - SNAP:
       - SNAP 101: 'snap/101.md'
