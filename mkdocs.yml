@@ -34,7 +34,10 @@ nav:
     - About this section: 101/about.md
     - Containers 101: '101/containers.md'
     - YAML 101: '101/yaml.md'
-    - CWL 101: '101/cwl.md'
+    - CWL 101: 
+      - Introduction: '101/cwl-101/cwl.md'
+      - CommandLineTool: '101/cwl-101/command-line-tool.md'
+      - Worflow: '101/cwl-101/workflow.md'
   - EO toolboxes:
     - SNAP:
       - SNAP 101: 'snap/101.md'
