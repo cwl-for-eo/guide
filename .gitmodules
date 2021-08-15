@@ -16,3 +16,6 @@
 [submodule "docs/snap"]
 	path = docs/snap
 	url = https://github.com/cwl-for-eo/snap.git
+[submodule "docs/101/cwl-101"]
+	path = docs/101/cwl-101
+	url = https://github.com/cwl-for-eo/cwl-101.git
