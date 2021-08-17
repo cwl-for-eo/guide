@@ -42,6 +42,8 @@ nav:
     - SNAP:
       - SNAP 101: 'snap/101.md'
       - SNAP with CWL: 'snap/snap-cwl/snap-cwl.md'
+      - SNAP Graph as File: 'snap/snap-cwl/graph-as-a-file.md'
+      - SNAP Graph inline: 'snap/snap-cwl/graph-inline.md'
       - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
     - OrfeoToolbox:
       - Orfeo Toolbox 101: '101/orfeo-toolbox.md'
