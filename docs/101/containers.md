@@ -1,6 +1,9 @@
 # Containers 101
 
-## Why do you need containers?
+## Why are containers needed?
+
+Containers provide a solution for the problem known as the _matrix from hell_: the development stack required to build an end-to-end application.
+
 
 compatibilities between tools, librairies, dependencies, OS
 
