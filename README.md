@@ -6,7 +6,9 @@ This is a guide with best practices and examples to adopt CWL in Earth Observati
 
 ## Contributing
 
-### Building the documentation
+### Contribute to the guide repository
+
+Clone and checkout the repository and its git submodules
 
 Build the mkdocs container image with:
 
@@ -21,3 +23,17 @@ docker run --rm -it -p 8000:8000 -v ${PWD}:/docs docs-dev:latest
 ```
 
 Open your browser at [http://0.0.0.0:8000](http://0.0.0.0:8000)
+
+Add your contributions.
+
+Push the changes to the repository
+
+### Contribute to a submodule repository
+
+TBW
+
+### Adding a submodule
+
+
+### Adding an example
+
