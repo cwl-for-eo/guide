@@ -1,5 +1,10 @@
 # Requirements to run the examples in the guide
 
+To learn how to use CWL in the Earth Observation context, you'll need two tools:
+
+- A CWL runner
+- Docker 
+
 ## CWL runner
 
 CWL is a set of open standards for describing computational workflows. These workflows are executed using a CWL runner and there are several implementations of such runners.
@@ -10,7 +15,7 @@ We recommend `cwltool` and the easiest way to install it is to create a conda en
 mamba install -n base cwltool
 ```
 
-Test the installation with:
+On Linux and Mac OS, test the installation with:
 
 ```console
 which cwltool
