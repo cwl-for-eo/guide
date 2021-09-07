@@ -38,28 +38,29 @@ nav:
       - Introduction: '101/cwl-101/cwl.md'
       - CommandLineTool: '101/cwl-101/command-line-tool.md'
       - Worflow: '101/cwl-101/workflow.md'
-  - EO toolboxes:
+  - Tutorials:
     - SNAP:
       - SNAP 101: 'snap/101.md'
       - SNAP with CWL: 'snap/snap-cwl/snap-cwl.md'
       - SNAP Graph as File: 'snap/snap-cwl/graph-as-a-file.md'
       - SNAP Graph inline: 'snap/snap-cwl/graph-inline.md'
-      # - Run SNAP graphs with CWL: 'cwl-snap-graph-runner/README.md'
     - OrfeoToolbox:
       - Orfeo Toolbox 101: '101/orfeo-toolbox.md'
       - BandMathX: otb/bandmathx/README.md
       - BundleToPerfectSensor: otb/landsat-8-pan-sharpening/README.md
-      - Mosaic: otb/landsat-8-mosaic/README.md
-  - EO tools:
+      - Mosaic: otb/landsat-8-mosaic/README.md 
     - GDAL:
       - GDAL 101: '101/gdal.md'
       - gdal_translate: gdal/gdal_translate/README.md
-  - Python:
-    - Introduction: python/introduction.md
-  - STAC:
-    - Introduction: stac/README.md
-    - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
-  - EO Workflows:
-    - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
-    - Landsat-8 pan-sharpening: otb/landsat-8-pan-sharpening/README.md
-    - Landsat-8 mosaic: otb/landsat-8-mosaic/README.md
+    - STAC: 
+      - Introduction: stac/README.md
+      - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
+  - How-to:
+    - Sentinel-2:
+      - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
+    - Landsat-8:
+      - Pan-sharpening with OTB: otb/landsat-8-pan-sharpening/README.md
+      - True color mosaic: otb/landsat-8-mosaic/README.md
+  - Reference:
+    - CWL Command Line Tool Description: reference/cwl-clt.md
+    - CWL Workflow Description: reference/cwl-workflow.md
