@@ -40,7 +40,6 @@ nav:
       - Worflow: '101/cwl-101/workflow.md'
   - Tutorials:
     - SNAP:
-      - SNAP 101: 'snap/101.md'
       - SNAP with CWL: 'snap/snap-cwl/snap-cwl.md'
       - SNAP Graph as File: 'snap/snap-cwl/graph-as-a-file.md'
       - SNAP Graph inline: 'snap/snap-cwl/graph-inline.md'
@@ -64,3 +63,5 @@ nav:
   - Reference:
     - CWL Command Line Tool Description: reference/cwl-clt.md
     - CWL Workflow Description: reference/cwl-workflow.md
+  - Explanation:
+    - SNAP: snap/101.md
