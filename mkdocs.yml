@@ -56,7 +56,14 @@ nav:
       - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
   - How-to:
     - CWL: 
+      - How to return an output file: how-to/cwl-how-to/return-output-file.md
+      - How to capture the stdout: how-to/cwl-how-to/capture-stdout.md
+      - How to capture JSON stdout and re-use it: how-to/cwl-how-to/capture-json-stdout.md
+      - How to set environment variables: how-to/cwl-how-to/environment-variables.md
+      - How to scatter workflows: how-to/cwl-how-to/scatter-workflows.md
+      - How to scatter input parameters: how-to/cwl-how-to/scatter-input-parameteres.md
       - How to create nested workflows: how-to/cwl-how-to/nested-workflow.md
+      - How to create conditional workflows: how-to/cwl-how-to/conditional-workflows.md
     - Sentinel-2:
       - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
     - Landsat-8:
