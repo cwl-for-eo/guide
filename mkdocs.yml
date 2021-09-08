@@ -31,9 +31,9 @@ nav:
   - Introduction: 'index.md'
   - Requirements: requirements.md
   - What you need to know:
-    - Containers 101: '101/containers.md'
-    - YAML 101: '101/yaml.md'
     - CWL 101: '101/cwl-101/cwl.md'
+    - YAML 101: '101/yaml.md'
+    - Containers 101: '101/containers.md'
   - Tutorials:
     - Your first CommandLineTool: '101/cwl-101/command-line-tool.md'
     - Your first Worflow: '101/cwl-101/workflow.md'
