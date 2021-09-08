@@ -56,7 +56,7 @@ nav:
       - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
   - How-to:
     - CWL: 
-      - How to nest workflows: how-to/cwl-how-to/nested-workflow.md
+      - How to create nested workflows: how-to/cwl-how-to/nested-workflow.md
     - Sentinel-2:
       - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
     - Landsat-8:
