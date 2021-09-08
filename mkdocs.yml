@@ -57,7 +57,7 @@ nav:
       - How to return an output file: how-to/cwl-how-to/return-output-file.md
       - How to capture the stdout: how-to/cwl-how-to/capture-stdout.md
       - How to capture JSON stdout and re-use it: how-to/cwl-how-to/capture-json-stdout.md
-      - How to set environment variables: how-to/cwl-how-to/environment-variables.md
+      - How to set environment variable: how-to/cwl-how-to/environment-variable.md
       - How to scatter workflows: how-to/cwl-how-to/scatter-workflows.md
       - How to scatter on input parameters: how-to/cwl-how-to/scatter-input-parameters.md
       - How to create nested workflows: how-to/cwl-how-to/nested-workflow.md
