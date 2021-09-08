@@ -61,7 +61,7 @@ nav:
       - How to capture JSON stdout and re-use it: how-to/cwl-how-to/capture-json-stdout.md
       - How to set environment variables: how-to/cwl-how-to/environment-variables.md
       - How to scatter workflows: how-to/cwl-how-to/scatter-workflows.md
-      - How to scatter input parameters: how-to/cwl-how-to/scatter-input-parameteres.md
+      - How to scatter on input parameters: how-to/cwl-how-to/scatter-input-parameters.md
       - How to create nested workflows: how-to/cwl-how-to/nested-workflow.md
       - How to create conditional workflows: how-to/cwl-how-to/conditional-workflows.md
     - Sentinel-2:
