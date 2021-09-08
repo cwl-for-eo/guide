@@ -31,14 +31,12 @@ nav:
   - Introduction: 'index.md'
   - Requirements: requirements.md
   - What you need to know:
-    - About this section: 101/about.md
     - Containers 101: '101/containers.md'
     - YAML 101: '101/yaml.md'
-    - CWL 101: 
-      - Introduction: '101/cwl-101/cwl.md'
-      - CommandLineTool: '101/cwl-101/command-line-tool.md'
-      - Worflow: '101/cwl-101/workflow.md'
+    - CWL 101: '101/cwl-101/cwl.md'
   - Tutorials:
+    - Your first CommandLineTool: '101/cwl-101/command-line-tool.md'
+    - Your first Worflow: '101/cwl-101/workflow.md'
     - SNAP:
       - SNAP with CWL: 'snap/snap-cwl/snap-cwl.md'
       - SNAP Graph as File: 'snap/snap-cwl/graph-as-a-file.md'
