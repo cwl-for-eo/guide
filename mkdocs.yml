@@ -39,9 +39,9 @@ nav:
     - Step-by-step:
       - Your first CommandLineTool: '101/cwl-101/command-line-tool.md'
       - Your first Workflow: '101/cwl-101/workflow.md'
-    - Getting Started:
+    - Slow pace:
       - Bash script: '101/cwl-101/bash-script.md'
-      - CWL syntax: '101/cwl-101/cwl-syntax'
+      - CWL syntax: '101/cwl-101/cwl-syntax.md'
       - Writing the Tool Wrappers: '101/cwl-101/tool-wrappers.md'  
       - Workflow composition: '101/cwl-101/workflow-composition.md'
       - Running and debugging: '101/cwl-101/workflow-run.md'
