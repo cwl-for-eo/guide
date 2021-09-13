@@ -9,13 +9,66 @@ To learn how to use CWL in the Earth Observation context, you'll need two tools:
 
 CWL is a set of open standards for describing computational workflows. These workflows are executed using a CWL runner and there are several implementations of such runners.
 
-We recommend `cwltool` and the easiest way to install it is to create a conda environment with: 
+We recommend `cwltool` and one of the easiest way to install it is to use `micromamba` and install `cwltool` in the `base` environment.
+
+### Linux
+
+Install `micromamba`
 
 ```console
-mamba install -n base cwltool
+wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba --strip-components=1
+``` 
+
+Initialize the shell:
+
+```console
+./micromamba shell init -s bash -p ~/micromamba
+source ~/.bashrc
 ```
 
-On Linux and Mac OS, test the installation with:
+Install cwltool
+
+```console
+micromamba activate
+micromamba install cwltool
+```
+
+Test the installation with:
+
+```console
+which cwltool
+```
+
+This must return the path to the `cwltool` executable.
+
+### MacOS X
+
+Install `micromamba`:
+
+```console
+curl -Ls https://micromamba.snakepit.net/api/micromamba/osx-64/latest | tar -xvj bin/micromamba
+mv bin/micromamba ./micromamba
+```
+
+Initialize the shell with:
+
+```console
+./micromamba shell init -s zsh -p ~/micromamba
+source ~/.zshrc
+```
+
+Activate `micromamba` and install `cwltool` in the _base_ environment:
+
+```console
+micromamba activate
+micromamba install -c conda-forge cwltool
+```
+
+### Windows
+
+TBW.
+
+Test the installation with:
 
 ```console
 which cwltool
@@ -25,9 +78,9 @@ This must return the path to the `cwltool` executable.
 
 ## Docker
 
-For Mac and Windows 10 Pro users, install Docker Desktop following the instructions found in [https://docs.docker.com/desktop/](https://docs.docker.com/desktop/).
-
 For Linux users, check how to do it here [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/).
+
+For Mac and Windows 10 Pro users, install Docker Desktop following the instructions found in [https://docs.docker.com/desktop/](https://docs.docker.com/desktop/).
 
 Test your installation with: 
 
@@ -74,5 +127,4 @@ hello-world  latest  d1165f221234  13336
 ## References 
 
 - cwltool software repository: [https://github.com/common-workflow-language/cwltool](https://github.com/common-workflow-language/cwltool)
-- mamba installation: [https://github.com/conda-forge/miniforge#mambaforge](https://github.com/conda-forge/miniforge#mambaforge)
-- docker installation: [ttps://docs.docker.com/engine/install/](ttps://docs.docker.com/engine/install/)
+- docker installation: [https://docs.docker.com/engine/install/](ttps://docs.docker.com/engine/install/)
