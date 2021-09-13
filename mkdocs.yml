@@ -41,7 +41,6 @@ nav:
       - Your first Workflow: '101/cwl-101/workflow.md'
     - Slow pace:
       - Bash script: '101/cwl-101/bash-script.md'
-      - CWL syntax: '101/cwl-101/cwl-syntax.md'
       - Writing the Tool Wrappers: '101/cwl-101/tool-wrappers.md'  
       - Workflow composition: '101/cwl-101/workflow-composition.md'
       - Running and debugging: '101/cwl-101/workflow-run.md'

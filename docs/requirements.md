@@ -30,7 +30,7 @@ Install cwltool
 
 ```console
 micromamba activate
-micromamba install cwltool
+micromamba install -c conda-forge cwltool
 ```
 
 Test the installation with:
@@ -88,7 +88,7 @@ Test your installation with:
 $ docker run hello-world
 ```
 
-This returns:
+After the container image pull, this returns:
 
 ```console
 Hello from Docker!
