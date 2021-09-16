@@ -47,13 +47,14 @@ Install `micromamba`:
 
 ```console
 curl -Ls https://micromamba.snakepit.net/api/micromamba/osx-64/latest | tar -xvj bin/micromamba
-mv bin/micromamba ./micromamba
+sudo mv bin/micromamba /usr/local/bin/micromamba
+sudo chmod +x /usr/local/bin/micromamba
 ```
 
 Initialize the shell with:
 
 ```console
-./micromamba shell init -s zsh -p ~/micromamba
+micromamba shell init -s zsh -p ~/micromamba
 source ~/.zshrc
 ```
 
