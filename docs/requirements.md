@@ -17,12 +17,14 @@ Install `micromamba`
 
 ```console
 wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba --strip-components=1
-``` 
+sudo mv bin/micromamba /usr/local/bin/micromamba
+sudo chmod +x /usr/local/bin/micromamba
+```
 
 Initialize the shell:
 
 ```console
-./micromamba shell init -s bash -p ~/micromamba
+micromamba shell init -s bash -p ~/micromamba
 source ~/.bashrc
 ```
 
@@ -69,21 +71,29 @@ micromamba install -c conda-forge cwltool
 
 TBW.
 
-Test the installation with:
+### Test the CWL runner installation with:
 
 ```console
-which cwltool
+cwltool --help
 ```
 
 This must return the path to the `cwltool` executable.
 
 ## Docker
 
-For Linux users, check how to do it here [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/).
+For Linux users, check how to install docker here: https://docs.docker.com/engine/install/#server.
 
-For Mac and Windows 10 Pro users, install Docker Desktop following the instructions found in [https://docs.docker.com/desktop/](https://docs.docker.com/desktop/).
+### Mac OS X
 
-Test your installation with: 
+Install Docker Desktop following the instructions found in https://docs.docker.com/desktop/mac/install/.
+
+### Windows 10 Pro
+
+Install Docker Desktop following the instructions found in https://docs.docker.com/desktop/windows/install/.
+
+### Testing your docker installation
+
+Test your installation in a terminal with: 
 
 ```console
 $ docker run hello-world
