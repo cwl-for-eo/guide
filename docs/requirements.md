@@ -81,6 +81,8 @@ This must return the path to the `cwltool` executable.
 
 ## Docker
 
+### Linux
+
 For Linux users, check how to install docker here: https://docs.docker.com/engine/install/#server.
 
 ### Mac OS X
