@@ -30,7 +30,10 @@ Push the changes to the repository
 
 ### Contribute to a submodule repository
 
-TBW
+```
+git submodule init
+git submodule update
+```
 
 ### Adding a submodule
 
