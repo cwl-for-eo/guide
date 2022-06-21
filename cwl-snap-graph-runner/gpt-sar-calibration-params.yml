@@ -1,0 +1,4 @@
+polarization: 'VV'
+snap_graph: {class: File, path: ./sar-calibration.xml}
+safe:
+- {'class': 'Directory', 'path': '/home/fbrito/Downloads/S1A_IW_GRDH_1SDV_20210615T050457_20210615T050522_038346_048680_F42E.SAFE'}  

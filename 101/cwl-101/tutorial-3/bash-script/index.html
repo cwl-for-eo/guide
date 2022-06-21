@@ -1,0 +1,827 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.0, mkdocs-material-8.3.6" name="generator"/>
+<title>Bash script - Guide for CWL in Earth Observation</title>
+<link href="../../../../assets/stylesheets/main.4a0965b7.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="https://unpkg.com/mermaid@8.8.0/dist/mermaid.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#shell-script-to-be-converted-to-cwl">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Guide for CWL in Earth Observation" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Guide for CWL in Earth Observation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Bash script
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Guide for CWL in Earth Observation" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Guide for CWL in Earth Observation
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../requirements/">
+        Requirements
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          What you need to know
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="What you need to know" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          What you need to know
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../cwl/">
+        CWL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../yaml/">
+        YAML 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../containers/">
+        Containers 101
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tutorials" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tutorial-1/quickwin/">
+        QuickWin
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Step-by-step
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Step-by-step" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Step-by-step
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tutorial-2/command-line-tool/">
+        Your first CommandLineTool
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tutorial-2/workflow/">
+        Your first Workflow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Slow pace
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Slow pace" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Slow pace
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Bash script
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Bash script
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#identifying-the-tools">
+    Identifying the tools
+  </a>
+<nav aria-label="Identifying the tools" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#curl-and-yq">
+    curl and yq
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gdal_translate">
+    gdal_translate
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otbcli_concatenateimages">
+    otbcli_ConcatenateImages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otbcli_bundletoperfectsensor">
+    otbcli_BundleToPerfectSensor
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tool-wrappers/">
+        Writing the Tool Wrappers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../workflow-composition/">
+        Workflow composition
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../workflow-run/">
+        Running and debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sub-workflow/">
+        Processing multiple inputs
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" id="__nav_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_4">
+          SNAP
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="SNAP" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_4">
+<span class="md-nav__icon md-icon"></span>
+          SNAP
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../snap/snap-cwl/snap-cwl/">
+        SNAP with CWL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../snap/snap-cwl/graph-as-a-file/">
+        SNAP Graph as File
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../snap/snap-cwl/graph-inline/">
+        SNAP Graph inline
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          OrfeoToolbox
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="OrfeoToolbox" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          OrfeoToolbox
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../orfeo-toolbox/">
+        Orfeo Toolbox 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../otb/bandmathx/">
+        BandMathX
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../otb/landsat-8-pan-sharpening/">
+        BundleToPerfectSensor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../otb/landsat-8-mosaic/">
+        Mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          GDAL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="GDAL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          GDAL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../gdal/">
+        GDAL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../gdal/gdal_translate/">
+        gdal_translate
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          STAC
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="STAC" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          STAC
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../stac/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../stac/sentinel-2-asset-resolution/">
+        Sentinel-2 asset resolution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          How-to
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="How-to" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          How-to
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          CWL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CWL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          CWL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/01-output/return-output-file/">
+        How to return an output file
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/02-stdout/capture-stdout/">
+        How to capture the stdout
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/03-json-stdout/capture-json-stdout/">
+        How to capture JSON stdout and re-use it
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/04-env/environment-variable/">
+        How to set environment variable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/05-runtime/create-file-at-runtime/">
+        How to create a file at runtime
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/06-nested-workflows/nested-workflow/">
+        How to create nested workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/07-scatter-workflows/scatter-input-parameters/">
+        How to scatter on input parameters
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/08-conditional-workflows/conditional-workflows/">
+        How to create conditional workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../how-to/cwl-how-to/09-inline-python/inline-python.md">
+        How to run inline Python code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Sentinel-2
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Sentinel-2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Sentinel-2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../workflows/sentinel-2-nbr/">
+        Sentinel-2 NBR
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3">
+          Landsat-8
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Landsat-8" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Landsat-8
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../otb/landsat-8-pan-sharpening/">
+        Pan-sharpening with OTB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../otb/landsat-8-mosaic/">
+        True color mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../reference/cwl-clt/">
+        CWL Command Line Tool Description
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../reference/cwl-workflow/">
+        CWL Workflow Description
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7">
+          Explanation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Explanation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          Explanation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../snap/101/">
+        SNAP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#identifying-the-tools">
+    Identifying the tools
+  </a>
+<nav aria-label="Identifying the tools" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#curl-and-yq">
+    curl and yq
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gdal_translate">
+    gdal_translate
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otbcli_concatenateimages">
+    otbcli_ConcatenateImages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otbcli_bundletoperfectsensor">
+    otbcli_BundleToPerfectSensor
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="shell-script-to-be-converted-to-cwl">Shell script to be converted to CWL</h1>
+<p>The shell script below takes as input:</p>
+<ul>
+<li><code>stac_item</code>: an URL to a STAC Item describing a Landsat-8 acquisition</li>
+<li><code>bbox</code>: the area of interest expressed as a bounding box as <code>"x_min,y_min,x_max,y_max"</code></li>
+<li><code>epsg</code>: the EPSG code used for the bounding box coordinates</li>
+</ul>
+<p>to apply the pan-sharpening technique and thus create an RGB composite at 15 metres.</p>
+<p>This shell script invokes the executables:</p>
+<ul>
+<li><code>curl</code> and <code>yq</code> to get and parse the STAC Item to resolve the red (B04), green (B03) and blue (B02) assets </li>
+<li><code>gdal_translate</code> to extract the area of interest of each of the red, green, blue assets on the one hand and on the other for the panchromatic band (B06)</li>
+<li><code>otbcli_ConcatenateImages</code> to create a multi-band GeoTIFF file with the red, green, blue cropped bands</li>
+<li><code>otbcli_BundleToPerfectSensor</code> to apply the pan-sharpening technique and generate the higher resolution RGB composite</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$#</span><span class="s2">"</span> -lt <span class="m">2</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">"Usage: ..."</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1"># three parameters</span>
+<span class="nv">stac_item</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nv">bbox</span><span class="o">=</span><span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
+<span class="nv">epsg</span><span class="o">=</span><span class="s2">"</span><span class="nv">$3</span><span class="s2">"</span> 
+
+<span class="c1"># epsg default value</span>
+<span class="o">[</span> -z <span class="s2">"</span><span class="si">${</span><span class="nv">epsg</span><span class="si">}</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">epsg</span><span class="o">=</span><span class="s2">"EPSG:4326"</span>
+
+<span class="c1"># crop pan band</span>
+<span class="nv">asset</span><span class="o">=</span><span class="s2">"B8"</span>
+
+<span class="c1"># resolve pan asset href using curl to get the content of the STAC item and jq to parse it</span>
+<span class="nv">asset_href</span><span class="o">=</span><span class="k">$(</span> curl -s <span class="si">${</span><span class="nv">stac_item</span><span class="si">}</span> <span class="p">|</span> jq .assets.<span class="si">${</span><span class="nv">asset</span><span class="si">}</span>.href <span class="p">|</span> tr -d <span class="s1">'"'</span> <span class="k">)</span>
+
+<span class="c1"># check if it's a VSI</span>
+<span class="nv">in_tif</span><span class="o">=</span><span class="k">$(</span> <span class="o">[</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="o">==</span> http* <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"/vsicurl/</span><span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="k">)</span> 
+<span class="c1"># cropped tif reuses input name</span>
+<span class="nv">pan</span><span class="o">=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="nv">$asset_href</span> <span class="p">|</span> rev <span class="p">|</span> cut -d <span class="s2">"/"</span> -f <span class="m">1</span> <span class="p">|</span> rev <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span>
+
+<span class="c1"># use gdal_translate to crop the tif</span>
+gdal_translate <span class="se">\</span>
+    -projwin <span class="se">\</span>
+    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">1</span> <span class="k">)</span> <span class="se">\</span>
+    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">4</span> <span class="k">)</span> <span class="se">\</span>
+    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">3</span> <span class="k">)</span> <span class="se">\</span>
+    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">2</span> <span class="k">)</span> <span class="se">\</span>
+    -projwin_srs <span class="si">${</span><span class="nv">epsg</span><span class="si">}</span> <span class="se">\</span>
+    <span class="si">${</span><span class="nv">in_tif</span><span class="si">}</span> <span class="se">\</span>
+    <span class="si">${</span><span class="nv">pan</span><span class="si">}</span>
+
+<span class="c1"># same approach for cropping the red, green and blue bands</span>
+<span class="nv">cropped</span><span class="o">=()</span>
+
+<span class="k">for</span> asset <span class="k">in</span> <span class="s2">"B4"</span> <span class="s2">"B3"</span> <span class="s2">"B2"</span> 
+<span class="k">do</span>
+    <span class="nv">asset_href</span><span class="o">=</span><span class="k">$(</span> curl -s <span class="si">${</span><span class="nv">stac_item</span><span class="si">}</span> <span class="p">|</span> jq .assets.<span class="si">${</span><span class="nv">asset</span><span class="si">}</span>.href <span class="p">|</span> tr -d <span class="s1">'"'</span> <span class="k">)</span>
+
+    <span class="nv">in_tif</span><span class="o">=</span><span class="k">$(</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="o">==</span> http* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"/vsicurl/</span><span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="k">)</span> 
+    <span class="nv">out_tif</span><span class="o">=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="nv">$asset_href</span> <span class="p">|</span> rev <span class="p">|</span> cut -d <span class="s2">"/"</span> -f <span class="m">1</span> <span class="p">|</span> rev <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span>
+
+    gdal_translate <span class="se">\</span>
+        -projwin <span class="se">\</span>
+        <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">1</span> <span class="k">)</span> <span class="se">\</span>
+        <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">4</span> <span class="k">)</span> <span class="se">\</span>
+        <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">3</span> <span class="k">)</span> <span class="se">\</span>
+        <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">2</span> <span class="k">)</span> <span class="se">\</span>
+        -projwin_srs <span class="si">${</span><span class="nv">epsg</span><span class="si">}</span> <span class="se">\</span>
+        <span class="si">${</span><span class="nv">in_tif</span><span class="si">}</span> <span class="se">\</span>
+        <span class="si">${</span><span class="nv">out_tif</span><span class="si">}</span>
+
+    <span class="nv">cropped</span><span class="o">+=(</span><span class="nv">$out_tif</span><span class="o">)</span>
+<span class="k">done</span>
+
+<span class="nv">xs</span><span class="o">=</span>xs_stack.tif
+<span class="c1"># create a single tif with the red, green and blue cropped tifs</span>
+otbcli_ConcatenateImages <span class="se">\</span>
+    -out <span class="se">\</span>
+    <span class="si">${</span><span class="nv">xs</span><span class="si">}</span> <span class="se">\</span>
+    -il <span class="k">$(</span> <span class="k">for</span> el <span class="k">in</span> <span class="si">${</span><span class="nv">cropped</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$el</span> <span class="p">;</span> <span class="k">done</span> <span class="k">)</span>
+
+<span class="c1"># pansharpening</span>
+otbcli_BundleToPerfectSensor <span class="se">\</span>
+    -out pan-sharpen.tif <span class="se">\</span>
+    int <span class="se">\</span>
+    -inxs <span class="si">${</span><span class="nv">xs</span><span class="si">}</span> <span class="se">\</span>
+    -inp <span class="si">${</span><span class="nv">pan</span><span class="si">}</span>
+</code></pre></div>
+<h2 id="identifying-the-tools">Identifying the tools</h2>
+<p>The shell script invokes four executables:</p>
+<ul>
+<li><code>curl</code> and <code>yq</code></li>
+<li><code>gdal_translate</code></li>
+<li><code>otbcli_ConcatenateImages</code></li>
+<li><code>otbcli_BundleToPerfectSensor</code></li>
+</ul>
+<h3 id="curl-and-yq">curl and yq</h3>
+<p><code>curl</code> and <code>yq</code> are invoked to resolve the STAC Item assets <code>B04</code>, <code>B03</code> and <code>B02</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> asset <span class="k">in</span> <span class="s2">"B4"</span> <span class="s2">"B3"</span> <span class="s2">"B2"</span> 
+<span class="k">do</span>
+<span class="hll">    <span class="nv">asset_href</span><span class="o">=</span><span class="k">$(</span> curl -s <span class="si">${</span><span class="nv">stac_item</span><span class="si">}</span> <span class="p">|</span> jq .assets.<span class="si">${</span><span class="nv">asset</span><span class="si">}</span>.href <span class="p">|</span> tr -d <span class="s1">'"'</span> <span class="k">)</span>
+</span>
+    <span class="nv">in_tif</span><span class="o">=</span><span class="k">$(</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="o">==</span> http* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"/vsicurl/</span><span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span> 
+    <span class="nv">out_tif</span><span class="o">=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="nv">$asset_href</span> <span class="p">|</span> rev <span class="p">|</span> cut -d <span class="s2">"/"</span> -f <span class="m">1</span> <span class="p">|</span> rev <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span>
+</code></pre></div>
+<p>It takes two command line arguments:</p>
+<ul>
+<li><code>stac_item</code>, the URL to the Landsat-8 STAC item</li>
+<li><code>asset</code>, the asset id </li>
+</ul>
+<p>And returns the asset href with the prefix <code>/vsicurl/</code> so it can be read by <code>gdal_translate</code>.</p>
+<h3 id="gdal_translate">gdal_translate</h3>
+<p><code>gdal_translate</code> is used to read the remote GeoTIFF and save a cropped GeoTIFF.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">in_tif</span><span class="o">=</span><span class="k">$(</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="o">==</span> http* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"/vsicurl/</span><span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">asset_href</span><span class="si">}</span> <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span> 
+<span class="nv">out_tif</span><span class="o">=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="nv">$asset_href</span> <span class="p">|</span> rev <span class="p">|</span> cut -d <span class="s2">"/"</span> -f <span class="m">1</span> <span class="p">|</span> rev <span class="p">|</span> sed <span class="s1">'s/TIF/tif/'</span> <span class="k">)</span>
+
+<span class="hll">gdal_translate <span class="se">\</span>
+</span><span class="hll">    -projwin <span class="se">\</span>
+</span><span class="hll">    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">1</span> <span class="k">)</span> <span class="se">\</span>
+</span><span class="hll">    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">4</span> <span class="k">)</span> <span class="se">\</span>
+</span><span class="hll">    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">3</span> <span class="k">)</span> <span class="se">\</span>
+</span><span class="hll">    <span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">bbox</span><span class="si">}</span> <span class="p">|</span> cut -d <span class="s2">","</span> -f <span class="m">2</span> <span class="k">)</span> <span class="se">\</span>
+</span><span class="hll">    -projwin_srs <span class="si">${</span><span class="nv">epsg</span><span class="si">}</span> <span class="se">\</span>
+</span>    <span class="si">${</span><span class="nv">in_tif</span><span class="si">}</span> <span class="se">\</span>
+    <span class="si">${</span><span class="nv">out_tif</span><span class="si">}</span>
+
+<span class="nv">cropped</span><span class="o">+=(</span><span class="nv">$out_tif</span><span class="o">)</span>
+</code></pre></div>
+<p>It takes as command line arguments: </p>
+<ul>
+<li><code>bbox</code> whose value is split since <code>gdal_translate</code> expects the area of interest expresses as <code>x_min,y_max,x_max,y_min</code> while the script gets it as <code>x_min,y_min,x_max,y_max</code>.</li>
+<li><code>epsg</code>, the EPSG code used for the bbox coordinates</li>
+<li><code>in_tif</code>, the asset href value prefixed with <code>/vsicurl</code></li>
+<li><code>out_tif</code>, the output name for the cropped GeoTIFF</li>
+</ul>
+<p>To produce the cropped GeoTIFF.</p>
+<h3 id="otbcli_concatenateimages">otbcli_ConcatenateImages</h3>
+<p>Orfeo's Toolbox <code>otbcli_ConcatenateImages</code> is used to concatenate the three cropped GeoTIFFs for the red, green and blue channels:</p>
+<div class="highlight"><pre><span></span><code>otbcli_ConcatenateImages <span class="se">\</span>
+    -out <span class="se">\</span>
+    <span class="si">${</span><span class="nv">xs</span><span class="si">}</span> <span class="se">\</span>
+    -il <span class="k">$(</span> <span class="k">for</span> el <span class="k">in</span> <span class="si">${</span><span class="nv">cropped</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$el</span> <span class="p">;</span> <span class="k">done</span> <span class="k">)</span>
+</code></pre></div>
+<p>It takes as command line arguments:</p>
+<ul>
+<li><code>${xs}</code>, the stacked output GeoTIFF</li>
+<li>the list of GeoTIFF to concatenate </li>
+</ul>
+<p>To produce the stacked GeoTIFF.</p>
+<h3 id="otbcli_bundletoperfectsensor">otbcli_BundleToPerfectSensor</h3>
+<p>Orfeo's Toolbox <code>otbcli_BundleToPerfectSensor</code> is used to apply the pan-sharpening technique using the stacked GeoTIFF produced by <code>otbcli_ConcatenateImages</code> and the panchromatic band cropped by <code>gdal_translate</code></p>
+<div class="highlight"><pre><span></span><code>otbcli_BundleToPerfectSensor <span class="se">\</span>
+    -out pan-sharpen.tif <span class="se">\</span>
+    int <span class="se">\</span>
+    -inxs <span class="si">${</span><span class="nv">xs</span><span class="si">}</span> <span class="se">\</span>
+    -inp <span class="si">${</span><span class="nv">pan</span><span class="si">}</span>
+</code></pre></div>
+<p>It takes as command line arguments:</p>
+<ul>
+<li><code>${xs}</code>, the stacked GeoTIFF </li>
+<li><code>${pan}</code>, the cropped pan-chromatic band</li>
+</ul>
+<p>To produce the pan-sharpened GeoTIFF.</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Your first Workflow" class="md-footer__link md-footer__link--prev" href="../../tutorial-2/workflow/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Your first Workflow
+            </div>
+</div>
+</a>
+<a aria-label="Next: Writing the Tool Wrappers" class="md-footer__link md-footer__link--next" href="../tool-wrappers/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Writing the Tool Wrappers
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.a877e258.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+</body>
+</html>

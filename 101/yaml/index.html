@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.0, mkdocs-material-8.3.6" name="generator"/>
+<title>YAML 101 - Guide for CWL in Earth Observation</title>
+<link href="../../assets/stylesheets/main.4a0965b7.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="https://unpkg.com/mermaid@8.8.0/dist/mermaid.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#yaml-101">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Guide for CWL in Earth Observation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Guide for CWL in Earth Observation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              YAML 101
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Guide for CWL in Earth Observation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Guide for CWL in Earth Observation
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../requirements/">
+        Requirements
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          What you need to know
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="What you need to know" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          What you need to know
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/cwl/">
+        CWL 101
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          YAML 101
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        YAML 101
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-value-pairs">
+    Key-Value Pairs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comments">
+    Comments
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#maps">
+    Maps
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arrays">
+    Arrays
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#json-style">
+    JSON Style
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference">
+    Reference
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../containers/">
+        Containers 101
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tutorials" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-1/quickwin/">
+        QuickWin
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Step-by-step
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Step-by-step" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Step-by-step
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-2/command-line-tool/">
+        Your first CommandLineTool
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-2/workflow/">
+        Your first Workflow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Slow pace
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Slow pace" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Slow pace
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-3/bash-script/">
+        Bash script
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-3/tool-wrappers/">
+        Writing the Tool Wrappers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-3/workflow-composition/">
+        Workflow composition
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-3/workflow-run/">
+        Running and debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cwl-101/tutorial-3/sub-workflow/">
+        Processing multiple inputs
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" id="__nav_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_4">
+          SNAP
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="SNAP" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_4">
+<span class="md-nav__icon md-icon"></span>
+          SNAP
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/snap-cwl/">
+        SNAP with CWL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/graph-as-a-file/">
+        SNAP Graph as File
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/graph-inline/">
+        SNAP Graph inline
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          OrfeoToolbox
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="OrfeoToolbox" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          OrfeoToolbox
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../orfeo-toolbox/">
+        Orfeo Toolbox 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/bandmathx/">
+        BandMathX
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-pan-sharpening/">
+        BundleToPerfectSensor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-mosaic/">
+        Mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          GDAL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="GDAL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          GDAL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gdal/">
+        GDAL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gdal/gdal_translate/">
+        gdal_translate
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          STAC
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="STAC" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          STAC
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../stac/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../stac/sentinel-2-asset-resolution/">
+        Sentinel-2 asset resolution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          How-to
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="How-to" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          How-to
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          CWL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CWL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          CWL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/01-output/return-output-file/">
+        How to return an output file
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/02-stdout/capture-stdout/">
+        How to capture the stdout
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/03-json-stdout/capture-json-stdout/">
+        How to capture JSON stdout and re-use it
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/04-env/environment-variable/">
+        How to set environment variable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/05-runtime/create-file-at-runtime/">
+        How to create a file at runtime
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/06-nested-workflows/nested-workflow/">
+        How to create nested workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/07-scatter-workflows/scatter-input-parameters/">
+        How to scatter on input parameters
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/08-conditional-workflows/conditional-workflows/">
+        How to create conditional workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/09-inline-python/inline-python.md">
+        How to run inline Python code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Sentinel-2
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Sentinel-2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Sentinel-2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../workflows/sentinel-2-nbr/">
+        Sentinel-2 NBR
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3">
+          Landsat-8
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Landsat-8" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Landsat-8
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-pan-sharpening/">
+        Pan-sharpening with OTB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-mosaic/">
+        True color mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/cwl-clt/">
+        CWL Command Line Tool Description
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/cwl-workflow/">
+        CWL Workflow Description
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7">
+          Explanation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Explanation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          Explanation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/101/">
+        SNAP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-value-pairs">
+    Key-Value Pairs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comments">
+    Comments
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#maps">
+    Maps
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arrays">
+    Arrays
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#json-style">
+    JSON Style
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference">
+    Reference
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="yaml-101">YAML 101</h1>
+<h2 id="key-value-pairs">Key-Value Pairs</h2>
+<p>Fundamentally, a file written in YAML consists of a set of <em>key-value pairs</em>.
+Each pair is written as <code>key: value</code>,
+where whitespace after the <code>:</code> is optional.
+Key names in CWL files should not contain whitespace -
+We use [<em>camelCase</em>][camelCase] for multi-word key names
+that have special meaning in the CWL specification
+and underscored key names otherwise.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">first_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bilbo</span><span class="w"></span>
+<span class="nt">last_name</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Baggins</span><span class="w"></span>
+<span class="nt">age_years</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">111</span><span class="w"></span>
+<span class="nt">home</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">Bag End, Hobbiton</span><span class="w"></span>
+</code></pre></div>
+<p>The YAML above defines four keys -
+<code>first_name</code>, <code>last_name</code>, <code>age_years</code>, and <code>home</code> -
+with their four respective values.
+Values can be
+character strings,
+numeric (integer, floating point, or scientfic representation),
+Boolean (<code>true</code> or <code>false</code>),
+or more complex nested types (see below).</p>
+<p>Values may be wrapped in quotation marks
+but be aware that this may change the way that they are interpreted
+i.e. <code>"1234"</code> will be treated as a character string
+, while <code>1234</code> will be treated as an integer.
+This distinction can be important,
+for example when describing parameters to a command:
+in CWL all parts of <code>baseCommand</code> must be strings so,
+if you want to specify a fixed numeric value to a command,
+make sure that you wrap that numeric value in quotes: <code>baseCommand: [echo, "42"]</code>.</p>
+<h2 id="comments">Comments</h2>
+<p>You may use <code>#</code> to add comments to your CWL and parameter files.
+Any characters to the right of <code>#</code> will be ignored by the program interpreting
+the YAML.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">first_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bilbo</span><span class="w"></span>
+<span class="nt">last_name</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Baggins</span><span class="w"></span>
+<span class="nt">age_years</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">111</span><span class="w"></span>
+<span class="c1"># this line will be ignored by the interpreter</span><span class="w"></span>
+<span class="nt">home</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">Bag End, Hobbiton</span><span class="w"> </span><span class="c1"># this is ignored too</span><span class="w"></span>
+</code></pre></div>
+<p>If there is anything on the line before the comment,
+be sure to add at least one space before the <code>#</code>!</p>
+<h2 id="maps">Maps</h2>
+<p>When describing a tool or workflow with CWL,
+it is usually necessary to construct more complex, nested representations.
+Called <em>maps</em>,
+these hierarchical structures are described in YAML by providing
+additional key-value pairs as the value of any key.
+These pairs (sometimes referred to as "children") are written
+on new lines under the key to which they belong (the "parent"),
+and should be indented with two spaces
+(⇥tab characters are not allowed).
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+<span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
+<span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo</span><span class="w"></span>
+<span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="c1"># this key has an object value</span><span class="w"></span>
+<span class="w">  </span><span class="nt">example_flag</span><span class="p">:</span><span class="w"> </span><span class="c1"># so does this one</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span><span class="w"></span>
+<span class="w">    </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"> </span><span class="c1"># and this one too</span><span class="w"></span>
+<span class="w">      </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-f</span><span class="w"></span>
+</code></pre></div>
+<p>The YAML above illustrates how you can build up complex nested object
+descriptions relatively quickly.
+The <code>inputs</code> map contains a single key, <code>example_flag</code>,
+which itself contains two keys, <code>type</code> and <code>inputBinding</code>,
+while one of these children, <code>inputBinding</code>,
+contains a further two key-value pairs (<code>position</code> and <code>prefix</code>).
+See the <a href="#arrays">Arrays</a> section below for more information about providing multiple
+values/key-value pairs for a single key.
+For comparison with the example YAML above,
+here is a graphical representation of the <code>inputs</code> object it describes.</p>
+<div class="mermaid">
+graph TD
+  inputs --&gt; example_flag
+  example_flag --&gt; type
+  type --- bool((boolean))
+  example_flag --&gt; inputBinding
+  inputBinding --&gt; position
+  inputBinding --&gt; prefix
+  position --- posval((1))
+  prefix --- prefval(('-f'))
+</div>
+<h2 id="arrays">Arrays</h2>
+<p>In certain circumstances it is necessary to provide
+multiple values or objects for a single key.
+As we've already seen in the <a href="#Maps">Maps</a> section above,
+more than one key-value pair can be mapped to a single key.
+However, it is also possible to define multiple values for a key
+without having to provide a unique key for each value.
+We can achieve this with an <em>array</em>,
+where each value is defined on its own line and preceded by <code>-</code>.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">touchfiles</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foo.txt</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bar.dat</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">baz.txt</span><span class="w"></span>
+</code></pre></div>
+<p>and a more complex example combining maps and arrays:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">exclusive_parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">record</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">itemC</span><span class="w"></span>
+<span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">itemC</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">          </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-C</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">record</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">itemD</span><span class="w"></span>
+<span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">itemD</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">          </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-D</span><span class="w"></span>
+</code></pre></div>
+<h2 id="json-style">JSON Style</h2>
+<p>YAML is based on [JavaScript Object Notation (JSON)][json]
+and maps and arrays can also be defined in YAML using the native JSON syntax.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">touchfiles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">foo.txt</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">bar.dat</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">baz.txt</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># equivalent to first Arrays example</span><span class="w"></span>
+</code></pre></div>
+<p>and:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># equivalent to the `inputs` example in "Maps" above</span><span class="w"></span>
+<span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">example_flag</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">boolean</span><span class="p p-Indicator">,</span><span class="nt"> inputBinding</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="nt"> prefix</span><span class="p">:</span><span class="w"> </span><span class="nv">-f</span><span class="p p-Indicator">}}}</span><span class="w"></span>
+</code></pre></div>
+<p>Native JSON can be useful
+to indicate where a field is being left intentionally empty
+(such as <code>[]</code> for an empty array),
+and where it makes more sense
+for the values to be located on the same line
+(such as when providing option flags and their values in a shell command).
+However, as the second example above shows,
+it can severely affect the readability of a YAML file
+and should be used sparingly.</p>
+<h2 id="reference">Reference</h2>
+<p>This page is the same as http://www.commonwl.org/user_guide/yaml/</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: CWL 101" class="md-footer__link md-footer__link--prev" href="../cwl-101/cwl/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              CWL 101
+            </div>
+</div>
+</a>
+<a aria-label="Next: Containers 101" class="md-footer__link md-footer__link--next" href="../containers/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Containers 101
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.a877e258.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script></body>
+</html>

@@ -1,0 +1,38 @@
+class: CommandLineTool
+ 
+requirements:
+  DockerRequirement: 
+    dockerPull: terradue/jq
+  ShellCommandRequirement: {}
+  InlineJavascriptRequirement: {}
+
+baseCommand: curl
+arguments:
+- -s
+- valueFrom: ${ return inputs.stac_item; }
+- "|"
+- jq
+- valueFrom: ${ return ".assets." + inputs.asset + ".href"; }
+- "|"
+- tr 
+- -d
+- '\"' #\""
+
+stdout: message
+
+inputs:
+  stac_item:
+    type: string
+  asset:
+    type: string
+
+outputs:
+
+  asset_href: 
+    type: string
+    outputBinding:
+      glob: message
+      loadContents: true
+      outputEval: $(  "/vsicurl/" + self[0].contents.split("\n").join("") )
+
+cwlVersion: v1.0

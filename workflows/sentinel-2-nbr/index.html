@@ -1,0 +1,1119 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.0, mkdocs-material-8.3.6" name="generator"/>
+<title>Sentinel-2 NBR - Guide for CWL in Earth Observation</title>
+<link href="../../assets/stylesheets/main.4a0965b7.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="https://unpkg.com/mermaid@8.8.0/dist/mermaid.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#sentinel-2-normalized-burn-ratio-nbr">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Guide for CWL in Earth Observation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Guide for CWL in Earth Observation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Sentinel-2 NBR
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Guide for CWL in Earth Observation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Guide for CWL in Earth Observation
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../requirements/">
+        Requirements
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          What you need to know
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="What you need to know" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          What you need to know
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/cwl/">
+        CWL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/yaml/">
+        YAML 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/containers/">
+        Containers 101
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tutorials" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-1/quickwin/">
+        QuickWin
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Step-by-step
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Step-by-step" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Step-by-step
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-2/command-line-tool/">
+        Your first CommandLineTool
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-2/workflow/">
+        Your first Workflow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Slow pace
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Slow pace" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Slow pace
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-3/bash-script/">
+        Bash script
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-3/tool-wrappers/">
+        Writing the Tool Wrappers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-3/workflow-composition/">
+        Workflow composition
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-3/workflow-run/">
+        Running and debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/cwl-101/tutorial-3/sub-workflow/">
+        Processing multiple inputs
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" id="__nav_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_4">
+          SNAP
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="SNAP" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_4">
+<span class="md-nav__icon md-icon"></span>
+          SNAP
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/snap-cwl/">
+        SNAP with CWL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/graph-as-a-file/">
+        SNAP Graph as File
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/snap-cwl/graph-inline/">
+        SNAP Graph inline
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          OrfeoToolbox
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="OrfeoToolbox" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          OrfeoToolbox
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/orfeo-toolbox/">
+        Orfeo Toolbox 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/bandmathx/">
+        BandMathX
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-pan-sharpening/">
+        BundleToPerfectSensor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-mosaic/">
+        Mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          GDAL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="GDAL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          GDAL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../101/gdal/">
+        GDAL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gdal/gdal_translate/">
+        gdal_translate
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          STAC
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="STAC" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          STAC
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../stac/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../stac/sentinel-2-asset-resolution/">
+        Sentinel-2 asset resolution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          How-to
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="How-to" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          How-to
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          CWL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CWL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          CWL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/01-output/return-output-file/">
+        How to return an output file
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/02-stdout/capture-stdout/">
+        How to capture the stdout
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/03-json-stdout/capture-json-stdout/">
+        How to capture JSON stdout and re-use it
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/04-env/environment-variable/">
+        How to set environment variable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/05-runtime/create-file-at-runtime/">
+        How to create a file at runtime
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/06-nested-workflows/nested-workflow/">
+        How to create nested workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/07-scatter-workflows/scatter-input-parameters/">
+        How to scatter on input parameters
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/08-conditional-workflows/conditional-workflows/">
+        How to create conditional workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/cwl-how-to/09-inline-python/inline-python.md">
+        How to run inline Python code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Sentinel-2
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Sentinel-2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Sentinel-2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Sentinel-2 NBR
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Sentinel-2 NBR
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-used">
+    Data used
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inputs">
+    Inputs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#steps">
+    Steps
+  </a>
+<nav aria-label="Steps" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#stac-asset-href-resolution">
+    STAC asset href resolution
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extract-the-data-over-the-area-of-interest">
+    Extract the data over the area of interest
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#normalized-difference-using-the-clipped-tifs">
+    Normalized difference using the clipped tifs.
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#putting-the-pieces-together">
+    Putting the pieces together
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3">
+          Landsat-8
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Landsat-8" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Landsat-8
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-pan-sharpening/">
+        Pan-sharpening with OTB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../otb/landsat-8-mosaic/">
+        True color mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/cwl-clt/">
+        CWL Command Line Tool Description
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/cwl-workflow/">
+        CWL Workflow Description
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7">
+          Explanation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Explanation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          Explanation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../snap/101/">
+        SNAP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-used">
+    Data used
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inputs">
+    Inputs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#steps">
+    Steps
+  </a>
+<nav aria-label="Steps" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#stac-asset-href-resolution">
+    STAC asset href resolution
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extract-the-data-over-the-area-of-interest">
+    Extract the data over the area of interest
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#normalized-difference-using-the-clipped-tifs">
+    Normalized difference using the clipped tifs.
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#putting-the-pieces-together">
+    Putting the pieces together
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="sentinel-2-normalized-burn-ratio-nbr">Sentinel-2 Normalized Burn Ratio (NBR)</h1>
+<p>The goal is to produce a Sentinel-2 NBR geotif using CWl to orchestrate gdal and OTB.</p>
+<p>The processing steps are: </p>
+<ul>
+<li>use <code>gdal_translate</code> to clip the COG over the area of interest expressed as a bounding box for the NIR, SWIR22 and Scene Classification</li>
+<li>use OTB's <code>otbcli_BandMathX</code> to do the band arithmetic and generate the NBR </li>
+</ul>
+<h2 id="data-used">Data used</h2>
+<p>The data used are Sentinel-2 products that were converted to COG and STAC and published on publicly accessible URLs.</p>
+<h2 id="inputs">Inputs</h2>
+<p>The inputs are: </p>
+<ul>
+<li>A Sentinel-2 STAC Item URL</li>
+<li>An area of interest expressed as a bounding box </li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="stac-asset-href-resolution">STAC asset href resolution</h3>
+<p>NBR requires the NIR, SWIR Sentinel-2 assets and we'll use the Scene Classification to process the normalized burn ratio only over valid pixels (e.g. avoid clouds, water, etc.).</p>
+<p>The first workflow step is getting the B8A (NIR), B12 (SWIR22) and the Scene Classification hrefs.</p>
+<p>This is done with the CWL <code>CommandLineTool</code>  available in the <code>asset.cwl</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
+
+<span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">DockerRequirement</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">dockerPull</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terradue/jq</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ShellCommandRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">InlineJavascriptRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+
+<span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">curl</span><span class="w"></span>
+<span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-s</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.stac_item; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"|"</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jq</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return ".assets." + inputs.asset + ".href"; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"|"</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tr</span><span class="w"> </span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-d</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'\"'</span><span class="w"> </span><span class="c1">#\""</span><span class="w"></span>
+
+<span class="nt">stdout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span><span class="w"></span>
+
+<span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">stac_item</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">asset</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+
+<span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">asset_href</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span><span class="w"></span>
+<span class="w">      </span><span class="nt">loadContents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">outputEval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$( self[0].contents.split("\n").join("") )</span><span class="w"></span>
+
+<span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+</code></pre></div>
+<h3 id="extract-the-data-over-the-area-of-interest">Extract the data over the area of interest</h3>
+<p><code>gdal_translate</code> can take VSI URLs as input and extract an area of interest.</p>
+<p>This step takes the resolved STAC assets href and produces clips of the original Sentinel-2 acquisition.</p>
+<p>This is achieved with the CWL <code>CommandLineTool</code> available in the <code>translate.cwl</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
+
+<span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">InlineJavascriptRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">DockerRequirement</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">dockerPull</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">osgeo/gdal</span><span class="w"></span>
+
+<span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gdal_translate</span><span class="w"></span>
+<span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-projwin</span><span class="w"> </span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.bbox.split(",")[0]; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.bbox.split(",")[3]; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.bbox.split(",")[2]; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.bbox.split(",")[1]; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-projwin_srs</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.epsg; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">    </span><span class="no">${ if (inputs.asset.startsWith("http")) {</span><span class="w"></span>
+
+<span class="w">         </span><span class="no">return "/vsicurl/" + inputs.asset; </span><span class="w"></span>
+
+<span class="w">       </span><span class="no">} else { </span><span class="w"></span>
+
+<span class="w">         </span><span class="no">return inputs.asset;</span><span class="w"></span>
+
+<span class="w">       </span><span class="no">} </span><span class="w"></span>
+<span class="w">    </span><span class="no">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.asset.split("/").slice(-1)[0]; }</span><span class="w"></span>
+
+<span class="nt">inputs</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">asset</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">bbox</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epsg</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">"EPSG:4326"</span><span class="w"> </span>
+
+<span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">tifs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">'*.tif'</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+
+<span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+</code></pre></div>
+<h3 id="normalized-difference-using-the-clipped-tifs">Normalized difference using the clipped tifs.</h3>
+<p>The final step uses OTB's <code>otbcli_BandMathX</code> to do the band arithmetic and generate the NBR.</p>
+<p>The CWl <code>CommandLineTool</code> to accomplish that is available in the <code>band_math.cwl</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
+
+<span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">InlineJavascriptRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">DockerRequirement</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">dockerPull</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terradue/otb-7.2.0</span><span class="w"></span>
+
+<span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">otbcli_BandMathX</span><span class="w"></span>
+<span class="nt">arguments</span><span class="p">:</span><span class="w"> </span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-out</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ return inputs.stac_item.split("/").slice(-1)[0] + ".tif"; }</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-exp</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'(im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">9</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">im3b1</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">11)</span><span class="nv"> </span><span class="s">?</span><span class="nv"> </span><span class="s">-2</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">(im1b1</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">im2b1)</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">(im1b1</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">im2b1)'</span><span class="w"></span>
+
+<span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">tifs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File[]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="w">      </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-il</span><span class="w"></span>
+<span class="w">      </span><span class="nt">separate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">stac_item</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+
+<span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">nbr</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">"*.tif"</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+
+<span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+</code></pre></div>
+<h2 id="putting-the-pieces-together">Putting the pieces together</h2>
+<p>The single CWL documents encapsulating the different steps of the final workflow are orchestrated as CWL <code>Workflow</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
+<span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NBR - produce the normalized difference between NIR and SWIR 22</span><span class="w"> </span>
+<span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NBR - produce the normalized difference between NIR and SWIR 22</span><span class="w"> </span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+
+<span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ScatterFeatureRequirement</span><span class="w"></span>
+
+<span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">stac_item</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sentinel-2 item</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">aoi</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">area of interest as a bounding box</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">bands</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string[]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"B8A"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"B12"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"SCL"</span><span class="p p-Indicator">]</span><span class="w"></span>
+
+<span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">nbr</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputSource</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node_nbr/nbr</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+
+<span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">node_stac</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset.cwl</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">stac_item</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stac_item</span><span class="w"></span>
+<span class="w">      </span><span class="nt">asset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bands</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset_href</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">scatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scatterMethod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotproduct</span><span class="w"> </span>
+
+<span class="w">  </span><span class="nt">node_subset</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">translate.cwl</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">asset</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node_stac/asset_href</span><span class="w"></span>
+<span class="w">      </span><span class="nt">bbox</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aoi</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tifs</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">scatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scatterMethod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotproduct</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">node_nbr</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">band_math.cwl</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">stac_item</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stac_item</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tifs</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">node_subset/tifs</span><span class="p p-Indicator">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nbr</span><span class="w"></span>
+
+<span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+</code></pre></div>
+<p>The workflow uses CWL's <code>ScatterFeatureRequirement</code> to run some of the steps in parallel:</p>
+<ul>
+<li>Each asset is resolved as an individual process</li>
+<li>Each <code>gdal_translate</code> is invoked individually</li>
+</ul>
+<p>The final node aggregates the inputs into a the NBR product.</p>
+<p>This CWL Workflow can be invoked with the parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">stac_item</span><span class="p">:</span><span class="w"> </span><span class="s">"https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_53HPA_20210723_0_L2A"</span><span class="w"></span>
+<span class="nt">aoi</span><span class="p">:</span><span class="w"> </span><span class="s">"136.659,-35.96,136.923,-35.791"</span><span class="w"></span>
+</code></pre></div>
+<p>And using <code>cwltool</code>: </p>
+<div class="highlight"><pre><span></span><code><span class="go">cwltool --parallel nbr.cwl nbr.yml</span>
+</code></pre></div>
+<p>This will output:</p>
+<div class="highlight"><pre><span></span><code><span class="go">INFO /srv/conda/bin/cwltool 3.0.20210319143721</span>
+<span class="go">INFO Resolved 'nbr.cwl' to 'file:///home/fbrito/work/sentinel-2-nbr/nbr.cwl'</span>
+<span class="go">INFO [workflow ] starting step node_stac</span>
+<span class="go">INFO [step node_stac] start</span>
+<span class="go">INFO [workflow ] start</span>
+<span class="go">INFO [step node_stac] start</span>
+<span class="go">INFO [step node_stac] start</span>
+<span class="go">INFO [job node_stac] /tmp/6z7ooxq4$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/6z7ooxq4,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/fxfeqivt,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --log-driver=none \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/36mv9qqs/20210803131208-777472.cid \</span>
+<span class="go">    terradue/jq \</span>
+<span class="go">    /bin/sh \</span>
+<span class="go">    -c \</span>
+<span class="go">    'curl' '-s' 'https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_53HPA_20210723_0_L2A' | 'jq' '.assets.B8A.href' | 'tr' '-d' \" &gt; /tmp/6z7ooxq4/message</span>
+<span class="go">INFO [job node_stac_2] /tmp/lukn7xa_$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/lukn7xa_,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/j3ojpzbw,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --log-driver=none \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/2pbnjsek/20210803131208-803455.cid \</span>
+<span class="go">    terradue/jq \</span>
+<span class="go">    /bin/sh \</span>
+<span class="go">    -c \</span>
+<span class="go">    'curl' '-s' 'https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_53HPA_20210723_0_L2A' | 'jq' '.assets.B12.href' | 'tr' '-d' \" &gt; /tmp/lukn7xa_/message</span>
+<span class="go">INFO [job node_stac_3] /tmp/8susbghr$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/8susbghr,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/w3eo95ll,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --log-driver=none \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/wgl0e8p6/20210803131208-816645.cid \</span>
+<span class="go">    terradue/jq \</span>
+<span class="go">    /bin/sh \</span>
+<span class="go">    -c \</span>
+<span class="go">    'curl' '-s' 'https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_53HPA_20210723_0_L2A' | 'jq' '.assets.SCL.href' | 'tr' '-d' \" &gt; /tmp/8susbghr/message</span>
+<span class="go">INFO [job node_stac] Max memory used: 0MiB</span>
+<span class="go">INFO [job node_stac_3] Max memory used: 0MiB</span>
+<span class="go">INFO [job node_stac_2] Max memory used: 0MiB</span>
+<span class="go">INFO [job node_stac] completed success</span>
+<span class="go">INFO [job node_stac_3] completed success</span>
+<span class="go">INFO [job node_stac_2] completed success</span>
+<span class="go">INFO [step node_stac] completed success</span>
+<span class="go">INFO [workflow ] starting step node_subset</span>
+<span class="go">INFO [step node_subset] start</span>
+<span class="go">INFO [step node_subset] start</span>
+<span class="go">INFO [step node_subset] start</span>
+<span class="go">INFO [job node_subset] /tmp/354unm3n$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/354unm3n,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/rna17u4f,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/bu2jkwzt/20210803131211-498283.cid \</span>
+<span class="go">    osgeo/gdal \</span>
+<span class="go">    gdal_translate \</span>
+<span class="go">    -projwin \</span>
+<span class="go">    136.659 \</span>
+<span class="go">    -35.791 \</span>
+<span class="go">    136.923 \</span>
+<span class="go">    -35.96 \</span>
+<span class="go">    -projwin_srs \</span>
+<span class="go">    EPSG:4326 \</span>
+<span class="go">    /vsicurl/https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/53/H/PA/2021/7/S2B_53HPA_20210723_0_L2A/B8A.tif \</span>
+<span class="go">    B8A.tif</span>
+<span class="go">INFO [job node_subset_2] /tmp/4wetamd3$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/4wetamd3,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/lb07hcp3,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/op_rhfej/20210803131211-569257.cid \</span>
+<span class="go">    osgeo/gdal \</span>
+<span class="go">    gdal_translate \</span>
+<span class="go">    -projwin \</span>
+<span class="go">    136.659 \</span>
+<span class="go">    -35.791 \</span>
+<span class="go">    136.923 \</span>
+<span class="go">    -35.96 \</span>
+<span class="go">    -projwin_srs \</span>
+<span class="go">    EPSG:4326 \</span>
+<span class="go">    /vsicurl/https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/53/H/PA/2021/7/S2B_53HPA_20210723_0_L2A/B12.tif \</span>
+<span class="go">    B12.tif</span>
+<span class="go">INFO [job node_subset_3] /tmp/zd2y8jwn$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/zd2y8jwn,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/vr39h9nm,target=/tmp \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/3yl71gjr/20210803131211-604042.cid \</span>
+<span class="go">    osgeo/gdal \</span>
+<span class="go">    gdal_translate \</span>
+<span class="go">    -projwin \</span>
+<span class="go">    136.659 \</span>
+<span class="go">    -35.791 \</span>
+<span class="go">    136.923 \</span>
+<span class="go">    -35.96 \</span>
+<span class="go">    -projwin_srs \</span>
+<span class="go">    EPSG:4326 \</span>
+<span class="go">    /vsicurl/https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/53/H/PA/2021/7/S2B_53HPA_20210723_0_L2A/SCL.tif \</span>
+<span class="go">    SCL.tif</span>
+<span class="go">Input file size is 5490, 5490</span>
+<span class="go">0Input file size is 5490, 5490</span>
+<span class="go">0Input file size is 5490, 5490</span>
+<span class="go">0...10...20...30...40...50...60...70...80...90...100 - done.</span>
+<span class="go">INFO [job node_subset_3] Max memory used: 19MiB</span>
+<span class="go">INFO [job node_subset_3] completed success</span>
+<span class="go">...10...20...30...40...50...60...70...80...90...100 - done.</span>
+<span class="go">INFO [job node_subset] Max memory used: 25MiB</span>
+<span class="go">INFO [job node_subset] completed success</span>
+<span class="go">...10...20...30...40...50...60...70...80...90...100 - done.</span>
+<span class="go">INFO [job node_subset_2] Max memory used: 25MiB</span>
+<span class="go">INFO [job node_subset_2] completed success</span>
+<span class="go">INFO [step node_subset] completed success</span>
+<span class="go">INFO [workflow ] starting step node_nbr</span>
+<span class="go">INFO [step node_nbr] start</span>
+<span class="go">INFO [job node_nbr] /tmp/ufuo4sxs$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/ufuo4sxs,target=/AHORGP \</span>
+<span class="go">    --mount=type=bind,source=/tmp/85nzo8d3,target=/tmp \</span>
+<span class="go">    --mount=type=bind,source=/tmp/354unm3n/B8A.tif,target=/var/lib/cwl/stg68264295-cc93-4bd9-989f-7c8c5fe1d55b/B8A.tif,readonly \</span>
+<span class="go">    --mount=type=bind,source=/tmp/4wetamd3/B12.tif,target=/var/lib/cwl/stg38a3dc1d-5b7e-4ed9-aff5-42564f25ca03/B12.tif,readonly \</span>
+<span class="go">    --mount=type=bind,source=/tmp/zd2y8jwn/SCL.tif,target=/var/lib/cwl/stg89b3a6a0-9c1d-4d16-bae9-1dfa1da681a5/SCL.tif,readonly \</span>
+<span class="go">    --workdir=/AHORGP \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/AHORGP \</span>
+<span class="go">    --cidfile=/tmp/hzj6lygr/20210803131224-614651.cid \</span>
+<span class="go">    terradue/otb-7.2.0 \</span>
+<span class="go">    otbcli_BandMathX \</span>
+<span class="go">    -out \</span>
+<span class="go">    S2B_53HPA_20210723_0_L2A.tif \</span>
+<span class="go">    -exp \</span>
+<span class="go">    '(im3b1 == 8 or im3b1 == 9 or im3b1 == 0 or im3b1 == 1 or im3b1 == 2 or im3b1 == 10 or im3b1 == 11) ? -2 : (im1b1 - im2b1) / (im1b1 + im2b1)' \</span>
+<span class="go">    -il \</span>
+<span class="go">    /var/lib/cwl/stg68264295-cc93-4bd9-989f-7c8c5fe1d55b/B8A.tif \</span>
+<span class="go">    /var/lib/cwl/stg38a3dc1d-5b7e-4ed9-aff5-42564f25ca03/B12.tif \</span>
+<span class="go">    /var/lib/cwl/stg89b3a6a0-9c1d-4d16-bae9-1dfa1da681a5/SCL.tif</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: Default RAM limit for OTB is 256 MB</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: GDAL maximum cache size is 3197 MB</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: OTB will use at most 16 threads</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: Image #1 has 1 components</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: Image #2 has 1 components</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: Image #3 has 1 components</span>
+<span class="go">2021-08-03 11:12:24 (INFO) BandMathX: Using expression: (im3b1 == 8 or im3b1 == 9 or im3b1 == 0 or im3b1 == 1 or im3b1 == 2 or im3b1 == 10 or im3b1 == 11) ? -2 : (im1b1 - im2b1) / (im1b1 + im2b1)</span>
+<span class="go">2021-08-03 11:12:24 (INFO): Estimated memory for full processing: 21.4543MB (avail.: 256 MB), optimal image partitioning: 1 blocks</span>
+<span class="go">2021-08-03 11:12:24 (INFO): File S2B_53HPA_20210723_0_L2A.tif will be written in 1 blocks of 1175x959 pixels</span>
+<span class="go">Writing S2B_53HPA_20210723_0_L2A.tif...: 100% [**************************************************] (0s)</span>
+<span class="go">INFO [job node_nbr] Max memory used: 0MiB</span>
+<span class="go">INFO [job node_nbr] completed success</span>
+<span class="go">INFO [step node_nbr] completed success</span>
+<span class="go">INFO [workflow ] completed success</span>
+<span class="go">{</span>
+<span class="go">    "nbr": {</span>
+<span class="go">        "location": "file:///home/fbrito/work/sentinel-2-nbr/S2B_53HPA_20210723_0_L2A.tif",</span>
+<span class="go">        "basename": "S2B_53HPA_20210723_0_L2A.tif",</span>
+<span class="go">        "class": "File",</span>
+<span class="go">        "checksum": "sha1$62ca971658766d3a8c0e975fce87ce850ce5f180",</span>
+<span class="go">        "size": 4515438,</span>
+<span class="go">        "path": "/home/fbrito/work/sentinel-2-nbr/S2B_53HPA_20210723_0_L2A.tif"</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+<span class="go">INFO Final process status is success</span>
+</code></pre></div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: How to create conditional workflows" class="md-footer__link md-footer__link--prev" href="../../how-to/cwl-how-to/08-conditional-workflows/conditional-workflows/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              How to create conditional workflows
+            </div>
+</div>
+</a>
+<a aria-label="Next: Pan-sharpening with OTB" class="md-footer__link md-footer__link--next" href="../../otb/landsat-8-pan-sharpening/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Pan-sharpening with OTB
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.a877e258.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+</body>
+</html>

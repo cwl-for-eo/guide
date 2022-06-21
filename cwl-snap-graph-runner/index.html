@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.0, mkdocs-material-8.3.6" name="generator"/>
+<title>Process SNAP GPT graphs using docker and the Common Workflow Language (CWL) - Guide for CWL in Earth Observation</title>
+<link href="../assets/stylesheets/main.4a0965b7.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="https://unpkg.com/mermaid@8.8.0/dist/mermaid.css" rel="stylesheet"/>
+<script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#process-snap-gpt-graphs-using-docker-and-the-common-workflow-language-cwl">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Guide for CWL in Earth Observation" class="md-header__button md-logo" data-md-component="logo" href=".." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Guide for CWL in Earth Observation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Process SNAP GPT graphs using docker and the Common Workflow Language (CWL)
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Guide for CWL in Earth Observation" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Guide for CWL in Earth Observation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Guide for CWL in Earth Observation
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../requirements/">
+        Requirements
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          What you need to know
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="What you need to know" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          What you need to know
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/cwl/">
+        CWL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/yaml/">
+        YAML 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/containers/">
+        Containers 101
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tutorials" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-1/quickwin/">
+        QuickWin
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Step-by-step
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Step-by-step" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Step-by-step
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-2/command-line-tool/">
+        Your first CommandLineTool
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-2/workflow/">
+        Your first Workflow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Slow pace
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Slow pace" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Slow pace
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-3/bash-script/">
+        Bash script
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-3/tool-wrappers/">
+        Writing the Tool Wrappers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-3/workflow-composition/">
+        Workflow composition
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-3/workflow-run/">
+        Running and debugging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/cwl-101/tutorial-3/sub-workflow/">
+        Processing multiple inputs
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" id="__nav_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_4">
+          SNAP
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="SNAP" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_4">
+<span class="md-nav__icon md-icon"></span>
+          SNAP
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snap/snap-cwl/snap-cwl/">
+        SNAP with CWL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snap/snap-cwl/graph-as-a-file/">
+        SNAP Graph as File
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snap/snap-cwl/graph-inline/">
+        SNAP Graph inline
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          OrfeoToolbox
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="OrfeoToolbox" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          OrfeoToolbox
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/orfeo-toolbox/">
+        Orfeo Toolbox 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../otb/bandmathx/">
+        BandMathX
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../otb/landsat-8-pan-sharpening/">
+        BundleToPerfectSensor
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../otb/landsat-8-mosaic/">
+        Mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          GDAL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="GDAL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          GDAL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../101/gdal/">
+        GDAL 101
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gdal/gdal_translate/">
+        gdal_translate
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          STAC
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="STAC" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          STAC
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../stac/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../stac/sentinel-2-asset-resolution/">
+        Sentinel-2 asset resolution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          How-to
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="How-to" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          How-to
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          CWL
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CWL" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          CWL
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/01-output/return-output-file/">
+        How to return an output file
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/02-stdout/capture-stdout/">
+        How to capture the stdout
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/03-json-stdout/capture-json-stdout/">
+        How to capture JSON stdout and re-use it
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/04-env/environment-variable/">
+        How to set environment variable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/05-runtime/create-file-at-runtime/">
+        How to create a file at runtime
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/06-nested-workflows/nested-workflow/">
+        How to create nested workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/07-scatter-workflows/scatter-input-parameters/">
+        How to scatter on input parameters
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/08-conditional-workflows/conditional-workflows/">
+        How to create conditional workflows
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../how-to/cwl-how-to/09-inline-python/inline-python.md">
+        How to run inline Python code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Sentinel-2
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Sentinel-2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Sentinel-2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../workflows/sentinel-2-nbr/">
+        Sentinel-2 NBR
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3">
+          Landsat-8
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Landsat-8" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Landsat-8
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../otb/landsat-8-pan-sharpening/">
+        Pan-sharpening with OTB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../otb/landsat-8-mosaic/">
+        True color mosaic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/cwl-clt/">
+        CWL Command Line Tool Description
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/cwl-workflow/">
+        CWL Workflow Description
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7">
+          Explanation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Explanation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          Explanation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snap/101/">
+        SNAP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requirements">
+    Requirements
+  </a>
+<nav aria-label="Requirements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cwl-runner">
+    CWL runner
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker">
+    Docker
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-started">
+    Getting started
+  </a>
+<nav aria-label="Getting started" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setting-up-the-container">
+    Setting-up the container
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-a-few-sentinel-1-grd-acquistions">
+    Getting a few Sentinel-1 GRD acquistions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preparing-the-input-parameters-for-the-cwl-step">
+    Preparing the input parameters for the CWL step
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-snap-graph">
+    The SNAP Graph
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-the-snap-graph-with-cwl-in-the-container">
+    Run the SNAP graph with CWL in the container
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-your-own-snap-graphs">
+    Run your own SNAP graphs
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="process-snap-gpt-graphs-using-docker-and-the-common-workflow-language-cwl">Process SNAP GPT graphs using docker and the Common Workflow Language (CWL)</h1>
+<p><a href="https://www.repostatus.org/#wip"><img alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public." src="https://www.repostatus.org/badges/latest/wip.svg"/></a></p>
+<p>This repo provides a method to process Earth Observation data with the SNAP Graph Processing Tool (GPT) using docker and CWL.</p>
+<p>With this method, the host machine does not have to have SNAP installed. </p>
+<p>CWL is used to invoke the SNAP <code>gpt</code> command line tool and deals with all the docker volume mounts required to process a Graph and EO data available on the host.</p>
+<p>This repo contains a SNAP Graph for the SAR calibration of Copernicus Sentinel-1 GRD product. You're expected to have the product on your local computer</p>
+<h2 id="requirements">Requirements</h2>
+<h3 id="cwl-runner">CWL runner</h3>
+<p>The CWL runner executes CWL documents. </p>
+<p>Follow the installation procedure provided <a href="https://github.com/common-workflow-language/cwltool#install">here</a></p>
+<h3 id="docker">Docker</h3>
+<p>The SNAP processing runs in a docker container so docker is required. </p>
+<p>Follow the installation steps for your computer provided <a href="https://docs.docker.com/get-docker/">here</a></p>
+<p>If needed follow the additional steps described <a href="https://docs.docker.com/engine/install/linux-postinstall/">here</a> to allow the CWL runner to manage docker as a non-root user.</p>
+<h2 id="getting-started">Getting started</h2>
+<h3 id="setting-up-the-container">Setting-up the container</h3>
+<p>Clone this repository and build the docker image with:</p>
+<div class="highlight"><pre><span></span><code><span class="go">git clone https://github.com/snap-contrib/cwl-snap-graph-runner.git</span>
+<span class="go">cd cwl-snap-graph-runner</span>
+<span class="go">docker build -t snap:latest -f .docker/Dockerfile .</span>
+</code></pre></div>
+<p>Check the docker image exists with:</p>
+<div class="highlight"><pre><span></span><code><span class="go">docker images | grep snap:latest</span>
+</code></pre></div>
+<p>This returns one line with the docker image just built.</p>
+<p>Check if SNAP <code>gpt</code> utility is available in the container:</p>
+<div class="highlight"><pre><span></span><code><span class="go">docker run --rm -it snap:latest gpt -h</span>
+</code></pre></div>
+<p>This dumps the SNAP <code>gpt</code> utiliy help message.</p>
+<h3 id="getting-a-few-sentinel-1-grd-acquistions">Getting a few Sentinel-1 GRD acquistions</h3>
+<p>Download a couple of Sentinel-1 GRD acquisitions and unzip them.</p>
+<h3 id="preparing-the-input-parameters-for-the-cwl-step">Preparing the input parameters for the CWL step</h3>
+<p>The CWL parameters file is a YAML file with an array of input directories pointing to the SAFE folders:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">polarization</span><span class="p">:</span><span class="w"> </span><span class="s">'VV'</span><span class="w"></span>
+<span class="nt">snap_graph</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="nv">File</span><span class="p p-Indicator">,</span><span class="nt"> path</span><span class="p">:</span><span class="w"> </span><span class="nv">./sar-calibration.xml</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">safe</span><span class="p">:</span><span class="w"> </span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">'class'</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">'Directory'</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">'path'</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">'/home/fbrito/Downloads/S1A_IW_GRDH_1SDV_20210615T050457_20210615T050522_038346_048680_F42E.SAFE'</span><span class="p p-Indicator">}</span><span class="w"></span>
+</code></pre></div>
+<p>Save this content in a file called <code>params.yml</code>.</p>
+<h3 id="the-snap-graph">The SNAP Graph</h3>
+<p>The file <code>sar-calibration.xml</code> contains a SNAP Graph that is parametrized with variables:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;node</span> <span class="na">id=</span><span class="s">"Read"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;operator&gt;</span>Read<span class="nt">&lt;/operator&gt;</span>
+    <span class="nt">&lt;sources/&gt;</span>
+    <span class="nt">&lt;parameters</span> <span class="na">class=</span><span class="s">"com.bc.ceres.binding.dom.XppDomElement"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;file&gt;</span>${inFile}<span class="nt">&lt;/file&gt;</span>
+      <span class="nt">&lt;formatName&gt;</span>SENTINEL-1<span class="nt">&lt;/formatName&gt;</span>
+    <span class="nt">&lt;/parameters&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+</code></pre></div>
+<p>The CWL file will instruct <code>gpt</code> to use the value passed as a command line argument:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">inp3</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-PinFile=</span><span class="w"></span>
+<span class="w">    </span><span class="nt">separate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Directory</span><span class="w"></span>
+</code></pre></div>
+<h3 id="run-the-snap-graph-with-cwl-in-the-container">Run the SNAP graph with CWL in the container</h3>
+<div class="highlight"><pre><span></span><code><span class="go">cwltool gpt-sar-calibration.cwl gpt-sar-calibration-params.yml</span>
+</code></pre></div>
+<p>This will process the Sentinel-1 GRD acquisitions with an output as:</p>
+<div class="highlight"><pre><span></span><code><span class="go">INFO /srv/conda/bin/cwltool 3.0.20210319143721</span>
+<span class="go">INFO Resolved 'gpt-sar-calibration.cwl' to 'file:///home/fbrito/work/cwl-snap-graph-runner/gpt-sar-calibration.cwl'</span>
+<span class="go">INFO [workflow ] start</span>
+<span class="go">INFO [workflow ] starting step node_1</span>
+<span class="go">INFO [step node_1] start</span>
+<span class="go">INFO [job node_1] /tmp/9ti8kfl0$ docker \</span>
+<span class="go">    run \</span>
+<span class="go">    -i \</span>
+<span class="go">    --mount=type=bind,source=/tmp/9ti8kfl0,target=/zefIeZ \</span>
+<span class="go">    --mount=type=bind,source=/tmp/f2jfo_i7,target=/tmp \</span>
+<span class="go">    --mount=type=bind,source=/home/fbrito/work/cwl-snap-graph-runner/sar-calibration.xml,target=/var/lib/cwl/stg52f9db5f-3988-4923-97d6-8f02f538b99c/sar-calibration.xml,readonly \</span>
+<span class="go">    --mount=type=bind,source=/home/fbrito/Downloads/S1A_IW_GRDH_1SDV_20210615T050457_20210615T050522_038346_048680_F42E.SAFE,target=/var/lib/cwl/stg83984c21-caf6-4b14-b2b0-893583bcd1b9/S1A_IW_GRDH_1SDV_20210615T050457_20210615T050522_038346_048680_F42E.SAFE,readonly \</span>
+<span class="go">    --workdir=/zefIeZ \</span>
+<span class="go">    --read-only=true \</span>
+<span class="go">    --log-driver=none \</span>
+<span class="go">    --user=1000:1000 \</span>
+<span class="go">    --rm \</span>
+<span class="go">    --env=TMPDIR=/tmp \</span>
+<span class="go">    --env=HOME=/zefIeZ \</span>
+<span class="go">    --cidfile=/tmp/sub7uryv/20210616102403-516906.cid \</span>
+<span class="go">    --env=PATH=/srv/conda/envs/env_snap/snap/bin:/usr/share/java/maven/bin:/usr/share/java/maven/bin:/opt/anaconda/bin:/opt/anaconda/condabin:/opt/anaconda/bin:/usr/lib64/qt-3.3/bin:/usr/share/java/maven/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin \</span>
+<span class="go">    --env=PREFIX=/opt/anaconda/envs/env_snap \</span>
+<span class="go">    snap:latest \</span>
+<span class="go">    gpt \</span>
+<span class="go">    /var/lib/cwl/stg52f9db5f-3988-4923-97d6-8f02f538b99c/sar-calibration.xml \</span>
+<span class="go">    -PselPol=VV \</span>
+<span class="go">    -PinFile=/var/lib/cwl/stg83984c21-caf6-4b14-b2b0-893583bcd1b9/S1A_IW_GRDH_1SDV_20210615T050457_20210615T050522_038346_048680_F42E.SAFE &gt; /tmp/9ti8kfl0/std.out 2&gt; /tmp/9ti8kfl0/std.err</span>
+<span class="go">INFO [job node_1] Max memory used: 7174MiB</span>
+<span class="go">INFO [job node_1] completed success</span>
+<span class="go">INFO [step node_1] completed success</span>
+<span class="go">INFO [workflow ] completed success</span>
+</code></pre></div>
+<h2 id="run-your-own-snap-graphs">Run your own SNAP graphs</h2>
+<p>Use the approach provided to run your own SNAP graphs</p>
+<ol>
+<li>
+<p>Create your own repo with this one as a template using the URL https://github.com/snap-contrib/cwl-snap-graph-runner/generate</p>
+</li>
+<li>
+<p>Create the SNAP graphs including the variable to be used in the CWL as parameters</p>
+</li>
+<li>
+<p>Write the CWL document to expose the SNAP Graph parameters you want to provide at execution time</p>
+</li>
+<li>
+<p>Write the YAML parameters file </p>
+</li>
+<li>
+<p>Run the CWL document</p>
+</li>
+</ol>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../assets/javascripts/bundle.a877e258.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+</body>
+</html>

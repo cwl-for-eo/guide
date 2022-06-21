@@ -1,0 +1,6 @@
+stac_item: "https://landsat-stac.s3.amazonaws.com/landsat-8-l1/189/034/2020-04-27/LC81890342020118.json"
+red: "B4"
+green: "B3"
+blue: "B2"
+bbox: "13.024,36.69,14.7,38.247"
+epsg: "EPSG:4326"
