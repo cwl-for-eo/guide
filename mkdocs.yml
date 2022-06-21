@@ -73,15 +73,16 @@ nav:
       - Sentinel-2 asset resolution: stac/sentinel-2-asset-resolution/README.md
   - How-to:
     - CWL: 
-      - How to return an output file: how-to/cwl-how-to/return-output-file.md
-      - How to capture the stdout: how-to/cwl-how-to/capture-stdout.md
-      - How to capture JSON stdout and re-use it: how-to/cwl-how-to/capture-json-stdout.md
-      - How to set environment variable: how-to/cwl-how-to/environment-variable.md
-      - How to create a file at runtime: how-to/cwl-how-to/create-file-at-runtime.md
-      - How to scatter workflows: how-to/cwl-how-to/scatter-workflows.md
+      - How to return an output file: how-to/cwl-how-to/01-output/return-output-file.md
+      - How to capture the stdout: how-to/cwl-how-to/02-stdout/capture-stdout.md
+      - How to capture JSON stdout and re-use it: how-to/cwl-how-to/03-json-output/capture-json-stdout.md
+      - How to set environment variable: how-to/cwl-how-to/04-env/environment-variable.md
+      - How to create a file at runtime: how-to/cwl-how-to/05-runtime/create-file-at-runtime.md
+      - How to create nested workflows: how-to/cwl-how-to/06-nested-workflows/nested-workflow.md
+      - How to scatter workflows: how-to/cwl-how-to/07-scatter-workflows/scatter-workflows.md
+      - How to create conditional workflows: how-to/cwl-how-to/08-conditional-workflows/conditional-workflows.md
+      - How to run inline Python code: how-to/cwl-how-to/09-inline-python/inline-python.md
       - How to scatter on input parameters: how-to/cwl-how-to/scatter-input-parameters.md
-      - How to create nested workflows: how-to/cwl-how-to/nested-workflow.md
-      - How to create conditional workflows: how-to/cwl-how-to/conditional-workflows.md
     - Sentinel-2:
       - Sentinel-2 NBR: workflows/sentinel-2-nbr/README.md
     - Landsat-8:
